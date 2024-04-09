@@ -16,6 +16,39 @@
 
 <script setup>
 import HeroImage from '../assets/images/galaxy-hero.png';
+import gsap from 'gsap';
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  // Define the start and end elements
+  const startElement = document.querySelector('.tagline-text span:first-child');
+  const endElement = document.querySelector('.tagline-text span:last-child');
+
+  // Get positions of the start and end elements
+  const startPosition = startElement.getBoundingClientRect();
+  const endPosition = endElement.getBoundingClientRect();
+
+  // Create a dummy element for the animation (a simple line)
+  const line = document.createElement('div');
+  line.style.position = 'absolute';
+  line.style.height = '2px';
+  line.style.width = '0';
+  line.style.backgroundColor = 'white';
+  line.style.top = `${startPosition.top + startPosition.height / 2}px`;
+  line.style.left = `${startPosition.left + startPosition.width / 2}px`;
+  document.body.appendChild(line);
+
+  // Animate the line from start to end
+  gsap.to(line, {
+    width: Math.sqrt(Math.pow(endPosition.left - startPosition.left, 2) + Math.pow(endPosition.top - startPosition.top, 2)) + 'px',
+    x: endPosition.left - startPosition.left,
+    y: endPosition.top - startPosition.top,
+    duration: 2,
+    ease: "power2.out"
+  });
+});
+
+
 </script>
 
 <style scoped>
@@ -31,9 +64,14 @@ import HeroImage from '../assets/images/galaxy-hero.png';
 .tagline-text {
   color: white;
   display: flex;
-  justify-content: center;
+  flex-flow: column;
+  justify-content: space-evenly;
   align-items: center;
-  height: 87%;
+  height: 88%;
+}
+.tagline-text span {
+  font-weight: 600;
+  padding: 3px;
 }
 .hero-image {
   position: relative;
