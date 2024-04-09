@@ -11,6 +11,8 @@ a,
   color: #589699;
   transition: 0.4s;
   padding: 3px;
+  font-weight: 600;
+  display: flex;
 }
 
 @media (hover: hover) {
