@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router';
+import logo from './assets/images/stellarpossible-logo.png'
 </script>
 
 <template>
@@ -7,7 +8,9 @@ import { RouterLink, RouterView } from 'vue-router';
     <div class="wrapper">
       <!-- Wrap "StellarPossible" in a RouterLink to route back to home ("/") -->
       <div class="logo">
-        <RouterLink to="/">StellarPossible</RouterLink>
+        <RouterLink to="/">
+                <img class="logo" :src="logo" alt="Logo" />
+        </RouterLink>
       </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -22,6 +25,9 @@ import { RouterLink, RouterView } from 'vue-router';
 </template>
 
 <style scoped>
+.logo {
+  width: 10rem;
+}
 .wrapper {
     display: flex;
     justify-content: space-between;
