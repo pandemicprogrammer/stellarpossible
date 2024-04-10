@@ -13,7 +13,8 @@
   "dependencies": {
     "gsap": "^3.12.5",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue-three-d-mockup": "^1.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

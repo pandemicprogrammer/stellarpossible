@@ -1,14 +1,14 @@
 <template>
   <main>
     <div class="wrapper">
+        <Mockup screen="../assets/images/galaxy-hero.png" />
+
       <div class="hero-image">
         <img :src="HeroImage" alt="Galaxy Hero" />
       </div>
       <div class="tagline-wrapper">    
-        <div class="tagline-text">
-          <span>To Inspire.</span>
-          <span>To Be Inspired.</span>
-        </div>
+          <GlowingText text="To Inspire" />
+          <GlowingText text="To Be Inspired" />
       </div>
     </div>
   </main>
@@ -16,37 +16,8 @@
 
 <script setup>
 import HeroImage from '../assets/images/galaxy-hero.png';
-import gsap from 'gsap';
-import { onMounted } from 'vue';
-
-onMounted(() => {
-  // Define the start and end elements
-  const startElement = document.querySelector('.tagline-text span:first-child');
-  const endElement = document.querySelector('.tagline-text span:last-child');
-
-  // Get positions of the start and end elements
-  const startPosition = startElement.getBoundingClientRect();
-  const endPosition = endElement.getBoundingClientRect();
-
-  // Create a dummy element for the animation (a simple line)
-  const line = document.createElement('div');
-  line.style.position = 'absolute';
-  line.style.height = '2px';
-  line.style.width = '0';
-  line.style.backgroundColor = 'white';
-  line.style.top = `${startPosition.top + startPosition.height / 2}px`;
-  line.style.left = `${startPosition.left + startPosition.width / 2}px`;
-  document.body.appendChild(line);
-
-  // Animate the line from start to end
-  gsap.to(line, {
-    width: Math.sqrt(Math.pow(endPosition.left - startPosition.left, 2) + Math.pow(endPosition.top - startPosition.top, 2)) + 'px',
-    x: endPosition.left - startPosition.left,
-    y: endPosition.top - startPosition.top,
-    duration: 2,
-    ease: "power2.out"
-  });
-});
+import GlowingText from '../components/GlowingText.vue';
+import Mockup from 'vue-three-d-mockup';
 
 
 </script>
@@ -57,7 +28,7 @@ onMounted(() => {
 }
 .tagline-wrapper {
   position: absolute;
-  height: 100vh;
+  height: 88vh;
   width: 100%;
   top: 0;
 }
