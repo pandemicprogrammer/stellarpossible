@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="wrapper">
-        <Mockup screen="../assets/images/galaxy-hero.png" />
+    <Mockup :screen="HeroImage" />
 
       <div class="hero-image">
         <img :src="HeroImage" alt="Galaxy Hero" />
