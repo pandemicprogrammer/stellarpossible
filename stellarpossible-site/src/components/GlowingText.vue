@@ -3,6 +3,7 @@
     <div id="glowing_text" ref="glowingTextRef" @mouseover="resetAnimation" @click="resetAnimation">{{ dynamicText }}</div>
   </div>
 </template>
+
 <script setup>
 import { onMounted, ref, toRefs, onUnmounted } from 'vue';
 
@@ -18,50 +19,44 @@ const glowingTextRef = ref(null);
 
 let intervalId = null;
 
-// Method to start glowing effect
 const startGlowing = () => {
   let index = 0;
-  const totalAnimationTime = 1000; // Total animation time in milliseconds
-  const intervalDuration = totalAnimationTime / dynamicText.value.replace(/\s+/g, '').length;
+  const totalAnimationTime = 1000; // Adjust as needed
+  const letters = dynamicText.value.split('');
+  const intervalDuration = totalAnimationTime / letters.filter(letter => letter.trim() !== '').length;
 
   intervalId = setInterval(() => {
     if (!glowingTextRef.value) return;
-    
-    const letters = dynamicText.value.split('');
+
     if (index >= letters.length) {
       clearInterval(intervalId);
-      glowingTextRef.value.innerHTML = dynamicText.value; // Reset text to remove styles after complete
+      glowingTextRef.value.innerHTML = dynamicText.value; // Reset text
       return;
     }
-    if (letters[index] === ' ') {
-      index++; // Increment index if current character is a space
-    }
-    
-    letters[index] = `<span style="color: var(--glowColor); text-shadow: var(--shadowColor);">${letters[index]}</span>`;
+
+    letters[index] = letters[index].trim() === '' ? letters[index] : `<span class="glow">${letters[index]}</span>`;
     glowingTextRef.value.innerHTML = letters.join('');
-    
+
     index++;
   }, intervalDuration);
 };
 
-// Method to stop glowing effect and clear styles
 const stopGlowing = () => {
   clearInterval(intervalId);
-  if (glowingTextRef.value) glowingTextRef.value.innerHTML = dynamicText.value; // Remove all styling
+  if (glowingTextRef.value) glowingTextRef.value.innerHTML = dynamicText.value; // Clear styles
 };
 
-// Reset and start animation on hover or click
 const resetAnimation = () => {
-  stopGlowing(); // Clear any existing animation
-  startGlowing(); // Start the animation again
+  stopGlowing();
+  startGlowing();
 };
 
 onMounted(() => {
-  startGlowing(); // Start the animation when the component is mounted
+  startGlowing();
 });
 
 onUnmounted(() => {
-  stopGlowing(); // Clean up on component unmount
+  stopGlowing();
 });
 </script>
 
@@ -71,7 +66,7 @@ onUnmounted(() => {
 :root {
   --screenCoeff: calc(1vw + 1vh);
   --bgColor: rgb(20, 20, 20);
-  --fontColor: rgb(255, 255, 255, .75);
+  --fontColor: rgb(255, 255, 255, .45);
   --shadowColor: 0 0 0.3em rgb(255, 255, 255);
   --glowColor: rgb(255, 255, 255);
 }
@@ -106,5 +101,30 @@ body {
   text-overflow: clip;
   cursor: pointer; /* Indicates the text is clickable */
   display: inline-block; /* Ensures the hover area is only around the text */
+  font-weight: bold;
+}
+
+.glow {
+  display: inline-block; /* Required for transforming individual letters */
+  transition: transform 0.5s ease, opacity 0.5s ease; /* Smooth transition for scaling and fading */
+  transform: scale(1.05); /* Slightly scale up the letters */
+  color: var(--glowColor);
+  text-shadow: var(--shadowColor);
+  opacity: 0; /* Start with the letter being invisible */
+  animation: glowEffect 1s forwards; /* Animation to control the visibility and scaling */
+}
+
+@keyframes glowEffect {
+  0% {
+    transform: scale(1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 0;
+  }
 }
 </style>

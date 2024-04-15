@@ -1,30 +1,41 @@
 <template>
   <main>
     <div class="wrapper">
-    <Mockup :screen="HeroImage" />
+      <div class="mockups-wrapper">
+              <MockupPhone />
+                    <MockupPhone />
+      <MockupPhone />
+      <MockupPhone />
+
+      </div>
 
       <div class="hero-image">
         <img :src="HeroImage" alt="Galaxy Hero" />
       </div>
-      <div class="tagline-wrapper">    
-          <GlowingText text="To Inspire" />
-          <GlowingText text="To Be Inspired" />
-      </div>
+      <TextScroller staticText="To" :items="['Inspire', 'Be Inspired']" />
     </div>
   </main>
 </template>
 
 <script setup>
 import HeroImage from '../assets/images/galaxy-hero.png';
-import GlowingText from '../components/GlowingText.vue';
-import Mockup from 'vue-three-d-mockup';
+import TextScroller from '../components/TextScroller.vue';
+import MockupPhone from '../components/MockupPhone.vue';
+
 
 
 </script>
-
 <style scoped>
 .wrapper {
   position: relative;
+}
+.mockups-wrapper {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
 }
 .tagline-wrapper {
   position: absolute;
