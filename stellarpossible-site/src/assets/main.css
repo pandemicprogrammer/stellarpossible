@@ -1,16 +1,19 @@
 @import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap');
 
 #app {
-  padding: 2rem;
-  background-color: #0d010b;
+  padding: 5px;
+  background-color: #110312;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  color: #589699;
   transition: 0.4s;
   padding: 3px;
+  font-weight: 600;
+  display: flex;
 }
 
 @media (hover: hover) {
